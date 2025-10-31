@@ -88,4 +88,9 @@ class PokemonInMemoryRepository @Inject constructor(): PokemonRepository {
             emit(pokemonList.find { it.id == id })
         }
     }
+    override fun addPokemon(pokemon: Pokemon) {
+        pokemonList + pokemon
+        pokemonList.plus(pokemon)//elegir uno u otro
+    }
 }
+

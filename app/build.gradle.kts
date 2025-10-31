@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.2") // O una versión más reciente
 
     //Hilt
     implementation(libs.hilt.android)
