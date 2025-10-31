@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 class PokemonInMemoryRepository @Inject constructor(): PokemonRepository {
 
-    val pokemonList: List<Pokemon> = listOf(
+    val pokemonList: MutableList<Pokemon> = mutableListOf(
         Pokemon(
             id = 1,
             name = "Bulbasaur",
@@ -89,8 +89,11 @@ class PokemonInMemoryRepository @Inject constructor(): PokemonRepository {
         }
     }
     override fun addPokemon(pokemon: Pokemon) {
-        pokemonList + pokemon
-        pokemonList.plus(pokemon)//elegir uno u otro
+        pokemonList.add(pokemon)
+    }
+
+    override fun getLastId(): Int {
+        return pokemonList.last().id
     }
 }
 

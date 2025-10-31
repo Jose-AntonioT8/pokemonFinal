@@ -3,6 +3,8 @@ package com.turingalan.pokemon
 import PokemonListScreen
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -15,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.turingalan.pokemon.ui.Route
+import com.turingalan.pokemon.ui.create.TodoCreateScreen
 import com.turingalan.pokemon.ui.detail.PokemonDetailScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,6 +31,11 @@ fun NavGraph() {
             TopAppBar(
                 title = { Text(text = "Pokemons") }
             )
+        },
+        bottomBar ={
+            Button(onClick = { navController.navigate("PokemonForm") }) {
+                Text("+")
+            }
         }
     ) { innerPadding ->
         val contentModifier = Modifier
@@ -47,6 +55,15 @@ fun NavGraph() {
                     }
                 )
             }
+            composable(route = "PokemonForm") {
+                TodoCreateScreen(
+                    modifier = contentModifier,
+                    onNavegationBack = {
+                        navController.navigate(Route.List.route)
+                    }
+                )
+            }
+
 
             // Pantalla de detalle
             composable(

@@ -1,6 +1,8 @@
 package com.turingalan.pokemon.ui.create
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -8,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,15 +18,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 @Composable
 fun TodoCreateScreen(
     modifier: Modifier = Modifier,
-    viewModel: TodoCreateViewModel = hiltViewModel(),
+    viewModel: PokemonCreateViewModel = hiltViewModel(),
     onNavegationBack: () -> Unit,
 ){
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when(uiState){
-        CreateUiState.Cancelled -> {  }
+        CreateUiState.Cancelled -> {
+            onNavegationBack()
+        }
         is CreateUiState.Created -> {
-            onNavegationBack() //hacer en navgraph
+            onNavegationBack()
         }
         is CreateUiState.New -> {
             TodoCreateForm(modifier = modifier,
@@ -40,16 +45,18 @@ fun TodoCreateScreen(
 
 @Composable
 fun TodoCreateForm(
-    viewModel : TodoCreateViewModel,
+    viewModel : PokemonCreateViewModel,
     modifier: Modifier = Modifier,
     error:String?=null
 ){
 
     Surface(modifier = modifier) {
+
         val isScreenIsInError = error!=null
 
 
-        Column {
+        Column(modifier = Modifier.padding(8.dp, top=80.dp)) {
+
             OutlinedTextField(
                 state = viewModel.titleState,
                 isError = isScreenIsInError
@@ -68,7 +75,7 @@ fun TodoCreateForm(
                 Text("Crear")
             }
             Button(
-                onClick = {  }
+                onClick = { viewModel.cancel() }
             ){
                 Text("Cancelar")
             }
