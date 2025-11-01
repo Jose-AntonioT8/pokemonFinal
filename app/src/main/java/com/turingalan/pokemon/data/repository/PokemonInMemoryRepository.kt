@@ -95,5 +95,5 @@ class PokemonInMemoryRepository @Inject constructor(): PokemonRepository {
     override fun getLastId(): Int {
         return pokemonList.last().id
     }
-}
+}//ver si cuando se crean dos pokemos sus ids son diferentes
 
