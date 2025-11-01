@@ -31,7 +31,7 @@ fun NavGraph() {
             TopAppBar(
                 title = { Text(text = "Pokemons") }
             )
-        },
+        },//habria que cambiar el bottom bar para que solo aparezca el boton en detailScreen y ListScreen pasandole una funcion para que se redirija a pokemon form
         bottomBar ={
             Button(onClick = { navController.navigate("PokemonForm") }) {
                 Text("+")
@@ -73,7 +73,7 @@ fun NavGraph() {
                 val id = backStackEntry.arguments?.getLong("id") ?: 0L
                 PokemonDetailScreen(
                     modifier = contentModifier,
-                    pokemonId = id.toInt(), // Si usas Int en tu modelo
+                    pokemonId = id.toInt(),
                     onBack = { navController.popBackStack() }
                 )
             }

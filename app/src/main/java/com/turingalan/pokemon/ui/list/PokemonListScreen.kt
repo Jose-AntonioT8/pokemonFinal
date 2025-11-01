@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -42,43 +43,30 @@ fun PokemonListScreen(
                 items = pokemons,
                 key = { it.id }
             ) { pokemon ->
-                PokemonListItemCard(
-                    modifier = Modifier.padding(8.dp),
-                    pokemonId = pokemon.id,
-                    name = pokemon.name,
-                    spriteId = pokemon.spriteId,
-                    onShowDetail = onShowDetail
-                )
+                Card(
+                    modifier = modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .clickable { onShowDetail(pokemon.id) },
+                    elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+
+                ) {
+                    Row {
+                        Image(
+                            painter = painterResource(pokemon.spriteId),
+                            modifier = Modifier.size(80.dp),
+                            contentScale = ContentScale.Crop,
+                            contentDescription = pokemon.name
+                        )
+                        Text(
+                            text = pokemon.name,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                }
             }
         }
     }
 }
 
-@Composable
-fun PokemonListItemCard(
-    modifier: Modifier = Modifier,
-    pokemonId: Int,
-    name: String,
-    spriteId: Int,
-    onShowDetail: (Int) -> Unit
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onShowDetail(pokemonId) }
-    ) {
-        Row {
-            Image(
-                painter = painterResource(spriteId),
-                modifier = Modifier.size(80.dp),
-                contentScale = ContentScale.Crop,
-                contentDescription = name
-            )
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleLarge,
 
-            )
-        }
-    }
-}
