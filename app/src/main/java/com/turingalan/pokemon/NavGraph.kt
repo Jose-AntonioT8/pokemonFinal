@@ -37,10 +37,9 @@ fun NavGraph() {
                 Text("+")
             }
         }
-    ) { innerPadding ->
-        val contentModifier = Modifier
-            .consumeWindowInsets(innerPadding)
-            .padding()
+    ) { paddingValues ->
+        Modifier.padding(paddingValues)
+
 
         NavHost(
             navController = navController,
@@ -49,7 +48,6 @@ fun NavGraph() {
             // Pantalla de la lista
             composable(Route.List.route) {
                 PokemonListScreen(
-                    modifier = contentModifier,
                     onShowDetail = { id ->
                         navController.navigate("PokemonDetail/$id")
                     }
@@ -57,7 +55,6 @@ fun NavGraph() {
             }
             composable(route = "PokemonForm") {
                 TodoCreateScreen(
-                    modifier = contentModifier,
                     onNavegationBack = {
                         navController.navigate(Route.List.route)
                     }
@@ -72,9 +69,7 @@ fun NavGraph() {
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getLong("id") ?: 0L
                 PokemonDetailScreen(
-                    modifier = contentModifier,
-                    pokemonId = id.toInt(),
-                    onBack = { navController.popBackStack() }
+                    pokemonId = id.toInt()
                 )
             }
         }

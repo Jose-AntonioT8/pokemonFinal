@@ -55,17 +55,20 @@ fun TodoCreateForm(
         val isScreenIsInError = error!=null
 
 
-        Column(modifier = Modifier.padding(8.dp, top=80.dp)) {
+        Column(modifier = Modifier.padding(8.dp, top=100.dp)) {
 
             OutlinedTextField(
                 state = viewModel.titleState,
                 isError = isScreenIsInError
             )
+            Text(text = error ?: "")
             OutlinedTextField(
                 state = viewModel.descriptionState,
                 isError = isScreenIsInError
 
             )
+            Text(text = error ?: "")
+
 
             Button(
                 onClick = {

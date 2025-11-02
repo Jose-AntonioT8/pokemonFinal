@@ -20,11 +20,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun PokemonDetailScreen(
     modifier: Modifier = Modifier,
     pokemonId: Int,
-    viewModel: PokemonDetailViewModel = hiltViewModel(),
-    onBack: () -> Unit = {} // Usado si quieres añadir retroceso
+    viewModel: PokemonDetailViewModel = hiltViewModel()
 ) {
     // Recogemos el Pokémon reactivo vía StateFlow. Valor inicial nulo por seguridad de tipos
-    val pokemon: Pokemon? by viewModel.getPokemonById(pokemonId).collectAsState(initial = null)
+    val pokemon: Pokemon? by viewModel.getPokemonById(pokemonId).collectAsState()
 
     Scaffold { paddingValues ->
         if (pokemon != null) {

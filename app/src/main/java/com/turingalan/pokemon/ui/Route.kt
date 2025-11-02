@@ -12,5 +12,5 @@ sealed class Route(val route: String) {
 
 
     @Serializable
-    data class Detail(val id: Long): Route(route = "PokemonDetail/{$id}")
+    data class Detail(val id: Int): Route(route = "PokemonDetail/{$id}")
 }
