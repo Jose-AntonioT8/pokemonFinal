@@ -33,7 +33,7 @@ fun NavGraph() {
             )
         },//habria que cambiar el bottom bar para que solo aparezca el boton en detailScreen y ListScreen pasandole una funcion para que se redirija a pokemon form
         bottomBar ={
-            Button(onClick = { navController.navigate("PokemonForm") }) {
+            Button(onClick = { navController.navigate(Route.Form.route) }) {
                 Text("+")
             }
         }
@@ -53,7 +53,7 @@ fun NavGraph() {
                     }
                 )
             }
-            composable(route = "PokemonForm") {
+            composable(Route.Form.route) {
                 TodoCreateScreen(
                     onNavegationBack = {
                         navController.navigate(Route.List.route)
@@ -65,11 +65,11 @@ fun NavGraph() {
             // Pantalla de detalle
             composable(
                 route = "PokemonDetail/{id}",
-                arguments = listOf(navArgument("id") { type = NavType.LongType })
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
             ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getLong("id") ?: 0L
+                val id = backStackEntry.arguments?.getInt("id") ?: 0
                 PokemonDetailScreen(
-                    pokemonId = id.toInt()
+                    pokemonId = id
                 )
             }
         }

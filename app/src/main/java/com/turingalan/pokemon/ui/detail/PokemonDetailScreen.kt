@@ -18,7 +18,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun PokemonDetailScreen(
-    modifier: Modifier = Modifier,
     pokemonId: Int,
     viewModel: PokemonDetailViewModel = hiltViewModel()
 ) {
