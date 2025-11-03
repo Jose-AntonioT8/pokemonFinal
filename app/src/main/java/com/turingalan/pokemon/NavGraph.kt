@@ -1,6 +1,6 @@
 package com.turingalan.pokemon
 
-import PokemonListScreen
+import PokemonList
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -19,6 +19,7 @@ import androidx.navigation.navArgument
 import com.turingalan.pokemon.ui.Route
 import com.turingalan.pokemon.ui.create.TodoCreateScreen
 import com.turingalan.pokemon.ui.detail.PokemonDetailScreen
+import com.turingalan.pokemon.ui.detail.PokeomDetail
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +48,7 @@ fun NavGraph() {
         ) {
             // Pantalla de la lista
             composable(Route.List.route) {
-                PokemonListScreen(
+                PokemonList(
                     onShowDetail = { id ->
                         navController.navigate("PokemonDetail/$id")
                     }
@@ -68,7 +69,7 @@ fun NavGraph() {
                 arguments = listOf(navArgument("id") { type = NavType.IntType })
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getInt("id") ?: 0
-                PokemonDetailScreen(
+                PokeomDetail(
                     pokemonId = id
                 )
             }
