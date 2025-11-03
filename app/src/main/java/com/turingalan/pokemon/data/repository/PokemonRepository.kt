@@ -1,6 +1,5 @@
 package com.turingalan.pokemon.data.repository
 
-import androidx.lifecycle.SavedStateHandle
 import com.turingalan.pokemon.data.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 
