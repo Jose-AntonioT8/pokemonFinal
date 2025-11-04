@@ -9,7 +9,8 @@ sealed class Route(val route: String) {
 
     @Serializable
     object Form: Route(route = "PokemonForm")
-
+    @Serializable
+    object Update: Route(route = "PokemonUpdate")
 
     @Serializable
     data class Detail(val id: Int): Route(route = "PokemonDetail/{$id}")

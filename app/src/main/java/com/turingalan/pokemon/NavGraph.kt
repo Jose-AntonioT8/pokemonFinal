@@ -20,6 +20,7 @@ import com.turingalan.pokemon.ui.Route
 import com.turingalan.pokemon.ui.create.TodoCreateScreen
 import com.turingalan.pokemon.ui.detail.PokemonDetailScreen
 import com.turingalan.pokemon.ui.detail.PokeomDetail
+import com.turingalan.pokemon.ui.update.PokeomUpdate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +63,19 @@ fun NavGraph() {
                 )
             }
 
+            composable(
+                route = "PokemonUpdate/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getInt("id") ?: 0
+                PokeomUpdate(
+                    pokemonId = id,
+                    onNavegationBack = {
+                        navController.navigate("PokemonDetail/$id")
+                    }
 
+                )
+            }
             // Pantalla de detalle
             composable(
                 route = "PokemonDetail/{id}",
@@ -70,7 +83,13 @@ fun NavGraph() {
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getInt("id") ?: 0
                 PokeomDetail(
-                    pokemonId = id
+                    pokemonId = id,
+                    onUpdate = {
+                        navController.navigate("PokemonUpdate/$id")
+                    },
+                    onNavegationBack = {
+                        navController.navigate(Route.List.route)
+                    }
                 )
             }
         }

@@ -10,6 +10,6 @@ interface PokemonRepository {
     //Devolvemos un único Pokemon. En caso de no encontrar el ID, devuelve un nulo
     fun getPokemonByID(id: Int): Flow<Pokemon?>
     fun addPokemon(pokemon: Pokemon)
-
+    fun updatePokemon(pokemon: Pokemon, id: Int)
     fun getLastId(): Int
 }

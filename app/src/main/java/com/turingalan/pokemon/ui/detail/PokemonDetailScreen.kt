@@ -2,6 +2,7 @@ package com.turingalan.pokemon.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import com.turingalan.pokemon.data.model.Pokemon
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,7 +26,9 @@ import com.turingalan.pokemon.ui.create.TodoCreateForm
 @Composable
 fun PokeomDetail(
     pokemonId: Int,
-    viewModel: PokemonDetailViewModel = hiltViewModel()
+    viewModel: PokemonDetailViewModel = hiltViewModel(),
+    onNavegationBack: () -> Unit,
+    onUpdate: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -48,12 +51,16 @@ fun PokeomDetail(
 
             PokemonDetailScreen(
                 pokemon = pokemon,
+                onNavegationBack = onNavegationBack,
+                onUpdate = onUpdate
                )
         }
         is DetailUiState.Error -> {
             val errorMessage = (uiState as DetailUiState.Error).message
             PokemonDetailScreen(
                 error = errorMessage,
+                onNavegationBack = onNavegationBack,
+
             )
         }
     }
@@ -65,8 +72,11 @@ fun PokeomDetail(
 @Composable
 fun PokemonDetailScreen(
     pokemon: Pokemon?=null,
-    error : String?=null
-) {
+    error : String?=null,
+    onNavegationBack: () -> Unit,
+    onUpdate : () -> Unit?={}
+
+    ) {
     if(pokemon!=null){
     Scaffold { paddingValues ->
 
@@ -95,6 +105,20 @@ fun PokemonDetailScreen(
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = {
+                            onUpdate()
+                        }
+                    ) {
+                        Text("Actualizar")
+                    }
+                    Button(
+                        onClick = {
+                            onNavegationBack()
+                        }
+                    ) {
+                        Text("Volver")
+                    }
                 }
             }
         }
@@ -102,5 +126,12 @@ fun PokemonDetailScreen(
         Text( modifier = Modifier
             .padding(top = 90.dp),
             text = error!!)
+        Button(
+            onClick = {
+                onNavegationBack()
+            }
+        ) {
+            Text("Volver")
+        }
     }
 }
